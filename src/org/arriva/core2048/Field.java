@@ -4,5 +4,6 @@ public abstract class Field {
 
     public abstract boolean hasEmptyCells();
     public abstract boolean hasAvailableConjunction();
+    public abstract int getCellCount();
 
 }
