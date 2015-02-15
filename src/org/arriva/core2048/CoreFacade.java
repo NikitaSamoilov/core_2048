@@ -32,6 +32,9 @@ public class CoreFacade {
         field.setConjunctionRule(conjunctionRule);
     }
 
+    private void FakeMethodForTestGitHubAuth() {
+        //
+    }
 
 
 
