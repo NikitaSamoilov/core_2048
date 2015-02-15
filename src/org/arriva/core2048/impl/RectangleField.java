@@ -3,12 +3,15 @@ package org.arriva.core2048.impl;
 import org.arriva.core2048.Cell;
 import org.arriva.core2048.Field;
 import org.arriva.core2048.SpecialRatingValues;
+import org.arriva.core2048.impl.helpers.RectangleFieldHelper;
 
 public class RectangleField extends Field {
 
     private int rowCount;
     private int colCount;
+
     protected Cell[][] cells;
+    protected RectangleFieldHelper rectangleFieldHelper;
 
     public int getRowCount() {
         return rowCount;
@@ -21,6 +24,8 @@ public class RectangleField extends Field {
     public RectangleField(int rowCount, int colCount) {
         this.rowCount = rowCount;
         this.colCount = colCount;
+
+        rectangleFieldHelper = new RectangleFieldHelper();
         cells = new Cell[rowCount][colCount];
     }
 
@@ -38,41 +43,12 @@ public class RectangleField extends Field {
 
     @Override
     public boolean hasAvailableConjunction() {
-        if (hasAvailableHorizontalConjunction()) {
+        if (rectangleFieldHelper.hasAvailableHorizontalConjunction(cells, rowCount, colCount, conjunctionRule)) {
             return true;
         }
 
-        if (hasAvailableVerticalConjunction()) {
+        if (rectangleFieldHelper.hasAvailableVerticalConjunction(cells, rowCount, colCount, conjunctionRule)) {
             return true;
-        }
-
-        return false;
-    }
-
-    private boolean hasAvailableVerticalConjunction() {
-        for (int i = 0; i < rowCount - 1; i++) {
-            for (int j = 0; j < colCount; j++) {
-                Cell firstCell = cells[i][j];
-                Cell secondCell = cells[i+1][j];
-
-                if (conjunctionRule.canConjuct(firstCell, secondCell)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean hasAvailableHorizontalConjunction() {
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < colCount - 1; j++) {
-                Cell firstCell = cells[i][j];
-                Cell secondCell = cells[i][j+1];
-
-                if (conjunctionRule.canConjuct(firstCell, secondCell)) {
-                    return true;
-                }
-            }
         }
 
         return false;
