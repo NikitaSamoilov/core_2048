@@ -36,6 +36,9 @@ public class CoreFacade {
         //
     }
 
+    private void FakeMethodForTestGitHubAuth1() {
+        //
+    }
 
 
 }
